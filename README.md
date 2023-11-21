@@ -64,12 +64,21 @@ services:
     restart: unless-stopped
 EOF
 ```
-### Start the gluetun protonvpn container:<br>
+### Start the gluetun protonvpn container:
 (If `docker-compose` doesn't work for you, make sure you installed it or try `docker compose` instead)
 ```
 docker-compose -f "$HOME/Docker/protonvpn/docker-compose.yml" up -d
 ```
-### Start the qbittorrent container:<br>
+### Start the qbittorrent container:
 ```
 docker-compose -f "$HOME/Docker/qbittorrent/docker-compose.yml" up -d
+```
+### Test the connection:
+Open terminal in your docker container:
+```
+docker exec -it qbittorrent /bin/bash
+```
+Get information about the public IP the container is currently using:
+```
+curl -sS https://ipinfo.io/json
 ```
