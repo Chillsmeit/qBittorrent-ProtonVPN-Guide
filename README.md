@@ -23,7 +23,7 @@ Create the YML for gluetun:
 ```
 touch "$HOME/Docker/protonvpn/docker-compose.yml"
 ```
-Use cat to quickly fill in the info in the YML file
+Use cat to quickly fill in the info for the gluetun yml file:
 ```
 cat <<EOF > "$HOME/Docker/protonvpn/docker-compose.yml"
 version: "3"
@@ -33,7 +33,7 @@ services:
     container_name: protonvpn # I like to change the container name to be the VPN I use
     cap_add:
       - NET_ADMIN
-    ports: # These are the qBittorrent ports, I like to use random ports and not default ports
+    ports: # These are the qBittorrent ports, I like to use random ports and not the default ports
       - 13750:13750 # This is for the qBittorrent WebUI Port
       - 7830:7830 # Listening port for TCP
       - 7830:7830/udp # Listening port for UDP
@@ -47,7 +47,7 @@ services:
     restart: unless-stopped
 EOF
 ```
-Create the YML for qBittorrent:
+Use cat to quickly fill in the info for the qBittorrent yml file:
 ```
 cat <<EOF > "$HOME/Docker/qbittorrent/docker-compose.yml"
 version: "2.1"
@@ -66,4 +66,13 @@ services:
     network_mode: "container:protonvpn" # this needs to be the exact same name as the protonvpn container we defined
     restart: unless-stopped
 EOF
+```
+Start the gluetun protonvpn container:<br>
+(If `docker-compose` doesn't work for you, make sure you installed it or try `docker compose` instead)
+```
+docker-compose -f "$HOME/Docker/protonvpn/docker-compose.yml" up -d
+```
+Start the qbittorrent container:<br>
+```
+docker-compose -f "$HOME/Docker/qbittorrent/docker-compose.yml" up -d
 ```
