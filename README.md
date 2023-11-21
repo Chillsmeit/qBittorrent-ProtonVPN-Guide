@@ -21,6 +21,7 @@ mkdir -p "$HOME/Docker/protonvpn" && mkdir -p "$HOME/Docker/qbittorrent"
 touch "$HOME/Docker/protonvpn/docker-compose.yml"
 ```
 ### Use cat to quickly fill in the info for the gluetun yml file:
+In case you want to check the documentation about glueton and protonvpn, check [this](https://github.com/qdm12/gluetun-wiki/blob/main/setup/providers/protonvpn.md)
 ```
 cat <<EOF > "$HOME/Docker/protonvpn/docker-compose.yml"
 version: "3"
@@ -38,7 +39,7 @@ services:
       - VPN_SERVICE_PROVIDER=protonvpn
       - OPENVPN_USER=username # REPLACE these with your OpenVPN credentials
       - OPENVPN_PASSWORD=password # REPLACE these with your OpenVPN credentials
-      - SERVER_COUNTRIES=Netherlands
+      - SERVER_COUNTRIES=Netherlands # The country server we'll use. Netherlands is P2P so it'll work fine.
     volumes:
       - ./ProtonVPN:/gluetun
     restart: unless-stopped
