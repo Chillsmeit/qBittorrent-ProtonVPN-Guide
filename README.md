@@ -16,7 +16,7 @@ I usually create a docker folder in my Home folder and create individual folders
 ```
 mkdir -p "$HOME/Docker/protonvpn" && mkdir -p "$HOME/Docker/qbittorrent"
 ```
-### Create the YML for gluetun:
+### Create the yml for gluetun:
 ```
 touch "$HOME/Docker/protonvpn/docker-compose.yml"
 ```
@@ -44,7 +44,7 @@ services:
     restart: unless-stopped
 EOF
 ```
-### Use cat to quickly fill in the info for the qBittorrent yml file:
+### Use cat to quickly fill in the info for the qbittorrent yml file:
 ```
 cat <<EOF > "$HOME/Docker/qbittorrent/docker-compose.yml"
 version: "2.1"
@@ -64,7 +64,7 @@ services:
     restart: unless-stopped
 EOF
 ```
-### Start the gluetun protonvpn container:
+### Start the gluetun/protonvpn container:
 (If `docker-compose` doesn't work for you, make sure you installed it or try `docker compose` instead)
 ```
 docker-compose -f "$HOME/Docker/protonvpn/docker-compose.yml" up -d
