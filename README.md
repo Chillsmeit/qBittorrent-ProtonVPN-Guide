@@ -33,15 +33,15 @@ services:
       - NET_ADMIN
     ports: # These are the qBittorrent ports, I like to use random ports and not the default ports
       - 13750:13750 # This is for the qBittorrent WebUI Port
-      - 7830:7830 # Listening port for TCP
-      - 7830:7830/udp # Listening port for UDP
+      - 6881:6881 # Listening port for TCP
+      - 6881:6881/udp # Listening port for UDP
     environment:
       - VPN_SERVICE_PROVIDER=protonvpn
       - OPENVPN_USER=username # REPLACE these with your OpenVPN credentials
       - OPENVPN_PASSWORD=password # REPLACE these with your OpenVPN credentials
       - SERVER_COUNTRIES=Netherlands # The country server we'll use. Netherlands is P2P so it'll work fine.
     volumes:
-      - ./ProtonVPN:/gluetun
+      - ./protonvpn:/gluetun
     restart: unless-stopped
 EOF
 ```
