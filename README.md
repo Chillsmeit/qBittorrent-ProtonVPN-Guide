@@ -35,12 +35,12 @@ services:
       - NET_ADMIN
     ports: # These are the qBittorrent ports, I like to use random ports and not default ports
       - 13750:13750 # This is for the qBittorrent WebUI Port
-      - 7830:7830 # Listening port TCP
-      - 7830:7830/udp # Listening port UDP
+      - 7830:7830 # Listening port for TCP
+      - 7830:7830/udp # Listening port for UDP
     environment:
       - VPN_SERVICE_PROVIDER=protonvpn
-      - OPENVPN_USER=youropenvpnusernamehere
-      - OPENVPN_PASSWORD=youropenvpnpasswordhere
+      - OPENVPN_USER=username # REPLACE these with your OpenVPN credentials
+      - OPENVPN_PASSWORD=password # REPLACE these with your OpenVPN credentials
       - SERVER_COUNTRIES=Netherlands
     volumes:
       - ./ProtonVPN:/gluetun
@@ -48,3 +48,22 @@ services:
 EOF
 ```
 Create the YML for qBittorrent:
+```
+cat <<EOF > "$HOME/Docker/qbittorrent/docker-compose.yml"
+version: "2.1"
+services:
+  qbittorrent:
+    image: lscr.io/linuxserver/qbittorrent:latest
+    container_name: qbittorrent
+    environment:
+      - PUID=1000 # to find your current ID just type "id" in the terminal
+      - PGID=1000 # to find your current group ID just type "id" in the terminal
+      - TZ=Etc/UTC
+      - WEBUI_PORT=13750 # This needs to be the exact same port we used on glueton for the WebUI
+    volumes:
+      - ./config:/config # this will create the config folder in the same folder as we have the yml file
+      - /path/to/your/drive:/downloads # change the left part of : to your actual path where you want to store your downloads
+    network_mode: "container:protonvpn" # this needs to be the exact same name as the protonvpn container we defined
+    restart: unless-stopped
+EOF
+```
