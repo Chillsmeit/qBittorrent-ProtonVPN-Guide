@@ -37,8 +37,9 @@ services:
       - 6881:6881/udp # Listening port for UDP
     environment:
       - VPN_SERVICE_PROVIDER=protonvpn
-      - OPENVPN_USER=username # REPLACE these with your OpenVPN credentials
+      - OPENVPN_USER=username # REPLACE these with your OpenVPN credentials. Use +pmp after your username to use port forwarding
       - OPENVPN_PASSWORD=password # REPLACE these with your OpenVPN credentials
+      - VPN_PORT_FORWARDING=on
       - SERVER_COUNTRIES=Netherlands # The country server we'll use. Netherlands is P2P so it'll work fine.
     volumes:
       - ./protonvpn:/gluetun
