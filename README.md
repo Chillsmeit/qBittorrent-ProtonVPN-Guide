@@ -1,5 +1,3 @@
-#WIP
-
 # DockerqBitProtonVPN
 Guide for setting up qBittorrent to use ProtonVPN using Docker:
 
@@ -13,17 +11,16 @@ Then you'll need to take note of your OpenVPN Credentials in here:
 
 ![image](https://github.com/Chillsmeit/DockerqBitProtonVPN/assets/93094077/cbf3ed2b-3a23-4034-bfdc-636ded533255)
 
+### Create the necessary folders:
 I usually create a docker folder in my Home folder and create individual folders for each container, keeps things tidy.
-
-Create the necessary folders:
 ```
-mkdir -p "$HOME/Docker/protonvpn" && mkdir -p "$HOME/Docker/qbittorrent
+mkdir -p "$HOME/Docker/protonvpn" && mkdir -p "$HOME/Docker/qbittorrent"
 ```
-Create the YML for gluetun:
+### Create the YML for gluetun:
 ```
 touch "$HOME/Docker/protonvpn/docker-compose.yml"
 ```
-Use cat to quickly fill in the info for the gluetun yml file:
+### Use cat to quickly fill in the info for the gluetun yml file:
 ```
 cat <<EOF > "$HOME/Docker/protonvpn/docker-compose.yml"
 version: "3"
@@ -47,7 +44,7 @@ services:
     restart: unless-stopped
 EOF
 ```
-Use cat to quickly fill in the info for the qBittorrent yml file:
+### Use cat to quickly fill in the info for the qBittorrent yml file:
 ```
 cat <<EOF > "$HOME/Docker/qbittorrent/docker-compose.yml"
 version: "2.1"
@@ -67,12 +64,12 @@ services:
     restart: unless-stopped
 EOF
 ```
-Start the gluetun protonvpn container:<br>
+### Start the gluetun protonvpn container:<br>
 (If `docker-compose` doesn't work for you, make sure you installed it or try `docker compose` instead)
 ```
 docker-compose -f "$HOME/Docker/protonvpn/docker-compose.yml" up -d
 ```
-Start the qbittorrent container:<br>
+### Start the qbittorrent container:<br>
 ```
 docker-compose -f "$HOME/Docker/qbittorrent/docker-compose.yml" up -d
 ```
