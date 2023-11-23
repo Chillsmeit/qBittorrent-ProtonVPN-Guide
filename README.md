@@ -67,13 +67,13 @@ services:
 EOF
 ```
 ### Start the gluetun/protonvpn container:
-(If `docker-compose` doesn't work for you, make sure you installed it or try `docker compose` instead)
+(If `docker compose` doesn't work for you, make sure you installed it or try `docker-compose` instead)
 ```
-docker-compose -f "$HOME/Docker/protonvpn/docker-compose.yml" up -d
+docker compose -f "$HOME/Docker/protonvpn/docker-compose.yml" up -d
 ```
 ### Start the qbittorrent container:
 ```
-docker-compose -f "$HOME/Docker/qbittorrent/docker-compose.yml" up -d
+docker compose -f "$HOME/Docker/qbittorrent/docker-compose.yml" up -d
 ```
 ### Test the connection:
 Open terminal in your docker container:
