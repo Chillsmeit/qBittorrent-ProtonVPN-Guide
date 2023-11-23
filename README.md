@@ -1,6 +1,6 @@
 # qBittorrentProtonVPN
 
-moms' spaghetti<br>
+ligma balls<br>
 
 Guide for setting up qBittorrent to use ProtonVPN using Docker:
 
