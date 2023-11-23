@@ -70,7 +70,7 @@ services:
 EOF
 ```
 ### Start the gluetun/protonvpn container:
-(If `docker compose` doesn't work for you, make sure you installed it or try `docker-compose` instead)
+If `docker compose` (v2) doesn't work for you, make sure you installed it or try `docker-compose` (v1) instead.
 ```
 docker compose -f "$HOME/Docker/protonvpn/docker-compose.yml" up -d
 ```
