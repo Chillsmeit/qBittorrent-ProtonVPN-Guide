@@ -66,7 +66,7 @@ EOF
 ### Download latest VueTorrent Theme 
 ```
 curl -s https://api.github.com/repos/VueTorrent/VueTorrent/releases/latest | jq -r '.assets[] | select(.name | endswith(".zip")) | .browser_download_url' | xargs -I{} sh -c 'curl -L -o /tmp/vuetorrent.zip {}
-unzip -o /tmp/vuetorrent.zip -d $HOME/Docker/qbittorrent/config/qBittorrent
+unzip -o /tmp/vuetorrent.zip -d $HOME/Docker/qbittorrent/config
 rm /tmp/vuetorrent.zip'
 ```
 ### Start the gluetun/protonvpn container:
