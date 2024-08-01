@@ -20,7 +20,6 @@ mkdir -p "$HOME/Docker/protonvpn" && mkdir -p "$HOME/Docker/qbittorrent"
 In case you want to check the documentation about glueton and protonvpn, check [this](https://github.com/qdm12/gluetun-wiki/blob/main/setup/providers/protonvpn.md)
 ```
 cat <<EOF > "$HOME/Docker/protonvpn/docker-compose.yml"
-version: "3"
 services:
   gluetun:
     image: qmcgaw/gluetun
@@ -30,7 +29,7 @@ services:
     devices:
       - /dev/net/tun:/dev/net/tun
     ports: # These are the qBittorrent ports, I like to use random ports and not the default ports 49152
-      - 49784:8080 # This is for the qBittorrent WebUI Port
+      - 49893:49893 # This is for the qBittorrent WebUI Port
       - 6881:6881 # Listening port for TCP
       - 6881:6881/udp # Listening port for UDP
     environment:
@@ -47,7 +46,6 @@ EOF
 ### Use cat to quickly fill in the info for the qbittorrent yml file:
 ```
 cat <<EOF > "$HOME/Docker/qbittorrent/docker-compose.yml"
-version: "2.1"
 services:
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
@@ -56,7 +54,8 @@ services:
       - PUID=1000 # to find your current ID just type "id" in the terminal
       - PGID=1000 # to find your current group ID just type "id" in the terminal
       - TZ=Etc/UTC
-      - WEBUI_PORT=8080 # This needs to be the exact same port we used on glueton for the WebUI
+      - WEBUI_PORT=49893 # This needs to be the exact same port we used on glueton for the WebUI
+      - TORRENTING_PORT=6881
     volumes:
       - ./config:/config # this will create the config folder in the same folder as we have the yml file
       - /path/to/your/drive:/downloads # change the left part of : to your actual path where you want to store your downloads
