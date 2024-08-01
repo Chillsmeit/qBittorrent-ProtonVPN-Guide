@@ -14,7 +14,7 @@ Then you'll need to take note of your OpenVPN Credentials in here:
 
 ### Create the necessary folders:
 ```
-mkdir -p "$HOME/Docker/protonvpn" && mkdir -p "$HOME/Docker/qbittorrent/config/qBittorrent"
+mkdir -p "$HOME/Docker/protonvpn" && mkdir -p "$HOME/Docker/qbittorrent/config"
 ```
 ### Use cat to quickly fill in the info for the gluetun yml file:
 In case you want to check the documentation about glueton and protonvpn, check [this](https://github.com/qdm12/gluetun-wiki/blob/main/setup/providers/protonvpn.md)
