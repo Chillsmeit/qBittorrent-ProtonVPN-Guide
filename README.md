@@ -69,6 +69,7 @@ curl -s https://api.github.com/repos/VueTorrent/VueTorrent/releases/latest | jq 
 unzip -o /tmp/vuetorrent.zip -d $HOME/Docker/qbittorrent/config
 rm /tmp/vuetorrent.zip'
 ```
+- **Don't forget to set the theme** in qbittorrent web UI -> go to Options -> Web UI -> Use alternative Web UI -> `/config/vuetorrent`
 ### Start the gluetun/protonvpn container:
 ```
 docker-compose -f "$HOME/Docker/protonvpn/docker-compose.yml" up -d
