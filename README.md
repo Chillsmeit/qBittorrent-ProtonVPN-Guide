@@ -14,7 +14,7 @@ Then you'll need to take note of your OpenVPN Credentials in here:
 
 ### Create the necessary folders:
 ```
-mkdir -p "$HOME/Docker/protonvpn" && mkdir -p "$HOME/Docker/qbittorrent"
+mkdir -p "$HOME/Docker/protonvpn" && mkdir -p "$HOME/Docker/qbittorrent/config/qBittorrent"
 ```
 ### Use cat to quickly fill in the info for the gluetun yml file:
 In case you want to check the documentation about glueton and protonvpn, check [this](https://github.com/qdm12/gluetun-wiki/blob/main/setup/providers/protonvpn.md)
@@ -62,6 +62,12 @@ services:
     network_mode: "container:protonvpn" # this needs to be the exact same name as the protonvpn container we defined
     restart: unless-stopped
 EOF
+```
+### Download latest VueTorrent Theme 
+```
+curl -s https://api.github.com/repos/VueTorrent/VueTorrent/releases/latest | jq -r '.assets[] | select(.name | endswith(".zip")) | .browser_download_url' | xargs -I{} sh -c 'curl -L -o /tmp/vuetorrent.zip {}
+unzip -o /tmp/vuetorrent.zip -d $HOME/Docker/qbittorrent/config/qBittorrent
+rm /tmp/vuetorrent.zip'
 ```
 ### Start the gluetun/protonvpn container:
 ```
