@@ -63,7 +63,7 @@ services:
     restart: unless-stopped
 EOF
 ```
-### Download latest VueTorrent Theme 
+### Download latest VueTorrent Theme (optional)
 ```
 curl -s https://api.github.com/repos/VueTorrent/VueTorrent/releases/latest | jq -r '.assets[] | select(.name | endswith(".zip")) | .browser_download_url' | xargs -I{} sh -c 'curl -L -o /tmp/vuetorrent.zip {}
 unzip -o /tmp/vuetorrent.zip -d $HOME/Docker/qbittorrent/config
