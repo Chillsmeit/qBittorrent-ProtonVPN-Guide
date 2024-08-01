@@ -39,7 +39,7 @@ services:
       - VPN_PORT_FORWARDING=on
       - SERVER_COUNTRIES=Netherlands # The country server we'll use. Netherlands is P2P so it'll work fine.
     volumes:
-      - ./protonvpn:/gluetun
+      - ./config:/gluetun
     restart: unless-stopped
 EOF
 ```
