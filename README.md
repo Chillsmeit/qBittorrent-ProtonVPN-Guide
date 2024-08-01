@@ -71,6 +71,11 @@ docker-compose -f "$HOME/Docker/protonvpn/docker-compose.yml" up -d
 ```
 docker-compose -f "$HOME/Docker/qbittorrent/docker-compose.yml" up -d
 ```
+### Get qbittorrent credentials with:
+```
+echo -n "\nUsername: admin \nPassword: " && docker logs qbittorrent 2>&1 | grep -oP 'A temporary password is provided for this session: \K\w+'
+```
+
 ### Test the connection:
 Open terminal in your docker container:
 ```
