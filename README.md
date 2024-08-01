@@ -32,6 +32,8 @@ services:
     container_name: protonvpn # I like to change the container name to be the VPN I use
     cap_add:
       - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
     ports: # These are the qBittorrent ports, I like to use random ports and not the default ports
       - 13750:13750 # This is for the qBittorrent WebUI Port
       - 6881:6881 # Listening port for TCP
