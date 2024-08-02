@@ -84,6 +84,8 @@ docker-compose -f "$HOME/Docker/qbittorrent/docker-compose.yml" up -d
 echo -n "\nUsername: admin \nPassword: " && docker logs qbittorrent 2>&1 | grep -oP 'A temporary password is provided for this session: \K\w+'
 ```
 - **Don't forget to change the password** in qbittorrent web UI -> go to Options -> Web UI
+### Access the WebUI:
+- Go to http://localhost:49893
 ### Test the connection:
 Open terminal in your docker container:
 ```
