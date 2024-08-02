@@ -81,7 +81,7 @@ docker-compose -f "$HOME/Docker/qbittorrent/docker-compose.yml" up -d
 ```
 ### Get qbittorrent credentials with:
 ```
-echo -n "\nUsername: admin \nPassword: " && docker logs qbittorrent 2>&1 | grep -oP 'A temporary password is provided for this session: \K\w+'
+echo -n "\nUsername: admin \nPassword: " && docker logs qbittorrent 2>&1 | tac | grep -m 1 -oP 'A temporary password is provided for this session: \K\w+'
 ```
 - **Don't forget to change the password** in qbittorrent web UI -> go to Options -> Web UI
 ### Access the WebUI:
