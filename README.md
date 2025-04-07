@@ -22,7 +22,7 @@ In case you want to check the documentation about glueton and protonvpn, check [
 cat <<EOF > "$HOME/Docker/protonvpn/docker-compose.yml"
 services:
   gluetun:
-    image: qmcgaw/gluetun
+    image: docker.io/qmcgaw/gluetun:latest
     container_name: protonvpn
     cap_add:
       - NET_ADMIN
