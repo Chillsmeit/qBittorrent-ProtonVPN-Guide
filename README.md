@@ -2,9 +2,10 @@
 
 Guide for setting up qBittorrent to use ProtonVPN using Docker:
 
-In this guide we'll create two containers, one for qBittorrent from the linuxserver.io<br>
+In this guide we'll create two containers in one file, one for qBittorrent from the linuxserver.io<br>
 The other one is for gluetun (vpn client) which is what we'll use for the ProtonVPN connection.<br>
-Essentially, we're going to route qBittorrent traffic into the gluetun container.
+Essentially, we're going to route qBittorrent traffic into the gluetun container.<br>
+Since ProtonVPN assigns a random port in each VPN connection, there's a command to automatically update qbittorrent port.
 
 First you'll need to login to https://account.protonvpn.com
 
