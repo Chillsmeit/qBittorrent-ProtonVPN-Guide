@@ -14,78 +14,96 @@ Then you'll need to take note of your OpenVPN Credentials in here:
 
 ### Create the necessary folders:
 ```
-mkdir -p "$HOME/Docker/protonvpn" && mkdir -p "$HOME/Docker/qbittorrent/config"
+mkdir -p "$HOME/Docker/qbittorrent-vpn"
 ```
-### Use cat to quickly fill in the info for the gluetun yml file:
+### Create a `docker-compose.yml` with:
 In case you want to check the documentation about glueton and protonvpn, check [this](https://github.com/qdm12/gluetun-wiki/blob/main/setup/providers/protonvpn.md)
 ```
-cat <<EOF > "$HOME/Docker/protonvpn/docker-compose.yml"
 services:
-  gluetun:
+  protonvpn:
     image: docker.io/qmcgaw/gluetun:latest
     container_name: protonvpn
     cap_add:
       - NET_ADMIN
     devices:
       - /dev/net/tun:/dev/net/tun
-    ports: # These are the qBittorrent ports, I like to use random ports and not the default ports 49152
-      - 49893:49893 # This is for the qBittorrent WebUI Port
-      - 6881:6881 # Listening port for TCP
-      - 6881:6881/udp # Listening port for UDP
+    env_file: .env
     environment:
-      - VPN_SERVICE_PROVIDER=protonvpn
-      - OPENVPN_USER=username # REPLACE these with your OpenVPN credentials. Use +pmp after your username to use port forwarding
-      - OPENVPN_PASSWORD=password # REPLACE these with your OpenVPN credentials
-      - VPN_PORT_FORWARDING=on
-      - SERVER_COUNTRIES=Netherlands,Germany # The server countries we'll use. They have to be P2P
+      - TZ=${TZ}
+      - VPN_SERVICE_PROVIDER=${VPN_SERVICE_PROVIDER}
+      - VPN_TYPE=${VPN_TYPE}
+      - OPENVPN_USER=${OPENVPN_USER}
+      - OPENVPN_PASSWORD=${OPENVPN_PASSWORD}
+      - VPN_PORT_FORWARDING=${VPN_PORT_FORWARDING}
+      - SERVER_COUNTRIES=${SERVER_COUNTRIES}
+      - PORT_FORWARD_ONLY=on
+      - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c '/usr/bin/wget -O- --retry-connrefused --post-data "json={\"listen_port\":{{PORTS}}}" http://127.0.0.1:${QBITTORRENT_WEBUI_PORT}/api/v2/app/setPreferences 2>&1'
     volumes:
-      - ./config:/gluetun
+      - ./vpn:/gluetun
+    ports:
+      - ${QBITTORRENT_WEBUI_PORT}:${QBITTORRENT_WEBUI_PORT}
     restart: unless-stopped
-EOF
-```
-### Use cat to quickly fill in the info for the qbittorrent yml file:
-```
-cat <<EOF > "$HOME/Docker/qbittorrent/docker-compose.yml"
-services:
+
   qbittorrent:
     image: lscr.io/linuxserver/qbittorrent:latest
     container_name: qbittorrent
+    depends_on:
+      - protonvpn
+    env_file: .env
     environment:
-      - PUID=1000 # to find your current ID just type "id" in the terminal
-      - PGID=1000 # to find your current group ID just type "id" in the terminal
-      - TZ=Etc/UTC
-      - WEBUI_PORT=49893 # This needs to be the exact same port we used on glueton for the WebUI
-      - TORRENTING_PORT=6881
+      - PUID=${PUID}
+      - PGID=${PGID}
+      - TZ=${TZ}
+      - WEBUI_PORT=${QBITTORRENT_WEBUI_PORT}
     volumes:
-      - ./config:/config # this will create the config folder in the same folder as we have the yml file
-      - /path/to/your/drive:/downloads # change the left part of : to your actual path where you want to store your downloads
-    network_mode: "container:protonvpn" # this needs to be the exact same name as the protonvpn container we defined
+      - ./config:/config
+      - ${PATH_MEDIA}:/downloads
+    network_mode: "service:protonvpn"
     restart: unless-stopped
-EOF
+```
+### Create a `.env` file with:
+```
+PUID=1000
+PGID=1000
+TZ=Etc/UTC
+
+# qBittorrent Settings
+QBITTORRENT_WEBUI_PORT=49893
+PATH_MEDIA=/path/where/qbittorrent/saves/downloads
+
+# Gluetun Settings
+VPN_SERVICE_PROVIDER=protonvpn
+VPN_TYPE=openvpn
+OPENVPN_USER=YOURUSER+pmp              # Use +pmp after your username
+OPENVPN_PASSWORD=YOURPASSWORD
+SERVER_COUNTRIES=Netherlands,Germany   # Preferred VPN server locations
+VPN_PORT_FORWARDING=on                 # Enable port forwarding
+
+# This command auto-replaces {{PORTS}} with the actual forwarded port
+VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c '/usr/bin/wget -O- --retry-connrefused --post-data "json={\"listen_port\":{{PORTS}}}" http://127.0.0.1:${QBITTORRENT_WEBUI_PORT}/api/v2/app/setPreferences 2>&1'
 ```
 ### Download latest VueTorrent Theme (optional)
 ```
 curl -s https://api.github.com/repos/VueTorrent/VueTorrent/releases/latest | jq -r '.assets[] | select(.name | endswith(".zip")) | .browser_download_url' | xargs -I{} sh -c 'curl -L -o /tmp/vuetorrent.zip {}
-unzip -o /tmp/vuetorrent.zip -d $HOME/Docker/qbittorrent/config
+unzip -o /tmp/vuetorrent.zip -d $HOME/Docker/qbittorrent-vpn/config
 rm /tmp/vuetorrent.zip'
 ```
-- **Don't forget to set the theme in qbittorrent web UI**
+- **Don't forget to set the theme in qbittorrent web UI afterwards**
 - Options -> Web UI -> Use alternative Web UI -> `/config/vuetorrent`
-### Start the gluetun/protonvpn container:
+
+### Start the containers with:
 ```
-docker-compose -f "$HOME/Docker/protonvpn/docker-compose.yml" up -d
+docker-compose -f "$HOME/Docker/qbittorrent-vpn/docker-compose.yml" up -d
 ```
-### Start the qbittorrent container:
+### Get qbittorrent temporary password with:
 ```
-docker-compose -f "$HOME/Docker/qbittorrent/docker-compose.yml" up -d
+docker logs -f --tail 2000 qbittorrent
 ```
-### Get qbittorrent credentials with:
-```
-echo -n "\nUsername: admin \nPassword: " && docker logs qbittorrent 2>&1 | tac | grep -m 1 -oP 'A temporary password is provided for this session: \K\w+'
-```
-- **Don't forget to change the password** in qbittorrent web UI -> go to Options -> Web UI
 ### Access the WebUI:
-- Go to http://localhost:49893
+- Go to http://localhost:49893 and login with `admin` and the **temporary password.**
+- **Change the temporary password** in qbittorrent -> `go to Options -> Web UI -> Authentication`
+- **Enable** `Bypass authentication for clients on localhost`
+- Restart container or pc
 ### Test the connection:
 Open terminal in your docker container:
 ```
