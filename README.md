@@ -91,7 +91,7 @@ rm /tmp/vuetorrent.zip'
 - **Don't forget to set the theme in qbittorrent web UI afterwards**
 - Options -> Web UI -> Use alternative Web UI -> `/config/vuetorrent`
 
-### Start the containers with:
+### Start the containers with: (or `docker compose`)
 ```
 docker-compose -f "$HOME/Docker/qbittorrent-vpn/docker-compose.yml" up -d
 ```
