@@ -92,10 +92,15 @@ rm /tmp/vuetorrent.zip'
 - **Don't forget to set the theme in qbittorrent web UI afterwards**
 - Options -> Web UI -> Use alternative Web UI -> `/config/vuetorrent`
 
-### Start the containers with: (or `docker compose`)
+### Start the containers with:
 ```
 docker-compose -f "$HOME/Docker/qbittorrent-vpn/docker-compose.yml" up -d
 ```
+Or in case you have docker compose V2:
+```
+docker compose -f "$HOME/Docker/qbittorrent-vpn/docker-compose.yml" up -d
+```
+
 ### Get qbittorrent temporary password with:
 ```
 docker logs -f --tail 2000 qbittorrent
