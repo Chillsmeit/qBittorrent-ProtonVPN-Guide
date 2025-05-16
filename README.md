@@ -113,6 +113,7 @@ docker logs -f --tail 2000 qbittorrent
   - In your terminal find the qbit container IP with `docker exec qbittorrent hostname -i`
   - Enable `Bypass authentication for clients in whitelisted IP subnets`
   - Put the qbit IP in the field, for example if your IP is `172.20.0.4` insert the following `172.20.0.0/24`
+  - **Save**
 - Restart container or pc
 ### Test the connection:
 Open terminal in your docker container:
