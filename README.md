@@ -128,6 +128,7 @@ curl -sS https://ipinfo.io/json
 
 ![image](https://github.com/user-attachments/assets/91555935-684a-460e-a198-394c429fb6b3)<br>
 <br>
-- You can enable DHT if you want more peers<br>
+You can enable DHT if you want more peers<br>
 <br>
+
 ![image](https://github.com/user-attachments/assets/54b89528-b0a3-45e7-9082-36199d2ef3bf)
