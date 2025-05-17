@@ -125,10 +125,23 @@ Get information about the public IP the container is currently using:
 curl -sS https://ipinfo.io/json
 ```
 ### Recommended settings to use with ProtonVPN and pmp for QBittorrent:
+- You can enable DHT if you want more peers<br>
 
 ![image](https://github.com/user-attachments/assets/91555935-684a-460e-a198-394c429fb6b3)<br>
-<br>
-You can enable DHT if you want more peers<br>
+
 <br>
 
 ![image](https://github.com/user-attachments/assets/54b89528-b0a3-45e7-9082-36199d2ef3bf)
+
+### If you want to send magnet links directly to your container through terminal, use the magnet-qbit.sh script:
+```
+wget https://raw.githubusercontent.com/Chillsmeit/qBittorrent-ProtonVPN-Guide/refs/heads/main/magnet-qbit.sh
+```
+```
+chmod +x magnet-qbit.sh
+```
+You can then create an alias for the script for example:
+```
+alias qbit="/path/to/script.sh"
+```
+This pairs well with something like [torge](https://github.com/TUVIMEN/torge)
