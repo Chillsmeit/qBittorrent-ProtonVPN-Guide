@@ -18,7 +18,7 @@ Then you'll need to take note of your OpenVPN Credentials in here:
 mkdir -p "$HOME/Docker/qbittorrent-vpn"
 ```
 ### Create a `docker-compose.yml` with:
-In case you want to check the documentation about glueton and protonvpn, check [this](https://github.com/qdm12/gluetun-wiki/blob/main/setup/providers/protonvpn.md)
+In case you want to check the documentation about gluetun and protonvpn, check [this](https://github.com/qdm12/gluetun-wiki/blob/main/setup/providers/protonvpn.md)
 ```
 services:
   protonvpn:
