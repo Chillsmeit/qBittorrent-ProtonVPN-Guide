@@ -146,5 +146,5 @@ You can then create an alias for the script for example:
 ```
 alias qbit="/path/to/script.sh"
 ```
-NOTE: The magnet link needs to be passed in quotes!
+NOTE: The magnet link needs to be passed in quotes!<br>
 This pairs well with something like [torge](https://github.com/TUVIMEN/torge)
