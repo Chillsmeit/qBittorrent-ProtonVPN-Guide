@@ -133,7 +133,9 @@ curl -sS https://ipinfo.io/json
 
 ![image](https://github.com/user-attachments/assets/54b89528-b0a3-45e7-9082-36199d2ef3bf)
 
-### If you want to send magnet links directly to your container through terminal, use the magnet-qbit.sh script:
+### If you want to send magnet links directly to your container through terminal:
+
+Download the magnet-qbit.sh script:
 ```
 wget https://raw.githubusercontent.com/Chillsmeit/qBittorrent-ProtonVPN-Guide/refs/heads/main/magnet-qbit.sh
 ```
@@ -144,4 +146,5 @@ You can then create an alias for the script for example:
 ```
 alias qbit="/path/to/script.sh"
 ```
+NOTE: The magnet link needs to be passed in quotes!
 This pairs well with something like [torge](https://github.com/TUVIMEN/torge)
