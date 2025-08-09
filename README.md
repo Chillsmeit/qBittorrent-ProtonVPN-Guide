@@ -1,5 +1,7 @@
 # qBittorrentProtonVPN
 
+### NOTE: Make sure you have the ProtonVPN Paid tier, Free tier won't work.
+
 Guide for setting up qBittorrent to use ProtonVPN using Docker:
 
 In this guide we'll create two containers in one file, one for qBittorrent from the linuxserver.io<br>
