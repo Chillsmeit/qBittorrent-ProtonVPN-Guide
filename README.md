@@ -110,7 +110,7 @@ docker logs -f --tail 2000 qbittorrent
 ### Access the WebUI:
 - Go to http://localhost:49893 and login with `admin` and the **temporary password.**
 - **Change the temporary password** in qbittorrent -> `go to Options -> Web UI -> Authentication`
-- **Optional**
+- **Required for port-forward to work**
   - Enable `Bypass authentication for clients on localhost`
   - In your terminal find the qbit container IP with `docker exec qbittorrent hostname -i`
   - Enable `Bypass authentication for clients in whitelisted IP subnets`
