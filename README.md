@@ -85,6 +85,7 @@ VPN_PORT_FORWARDING=on                 # Enable port forwarding
 
 # This command auto-replaces {{PORTS}} with the actual forwarded port
 VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c '/usr/bin/wget -O- --retry-connrefused --post-data "json={\"listen_port\":{{PORTS}}}" http://127.0.0.1:${QBITTORRENT_WEBUI_PORT}/api/v2/app/setPreferences 2>&1'
+VPN_PORT_FORWARDING_DOWN_COMMAND=/bin/sh -c '/usr/bin/wget -O- --retry-connrefused --post-data "json={\"listen_port\":0,\"current_network_interface\":\"lo"}" http://127.0.0.1:${QBITTORRENT_WEBUI_PORT}/api/v2/app/setPreferences 2>&1'
 ```
 ### Download latest VueTorrent Theme (optional)
 ```
@@ -118,6 +119,8 @@ docker logs -f --tail 2000 qbittorrent
   - Put the qbit IP in the field, for example if your IP is `172.20.0.4` insert the following `172.20.0.0/24`
   - **Save**
 - Restart container or pc
+- Do `sudo docker compose up -d --force-recreate` if the listening port in `Connection tab` still shows the default port.
+- If issues still persist, go to `Advanced` and change `networking interface` to `tun0` and `optional IP adress to bind to` to `All IPV4 adresses`
 ### Test the connection:
 Open terminal in your docker container:
 ```
