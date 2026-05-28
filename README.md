@@ -130,6 +130,10 @@ Get information about the public IP the container is currently using:
 ```
 curl -sS https://ipinfo.io/json
 ```
+Or
+```
+wget -qO- https://ipinfo.io/json
+```
 ### Recommended settings to use with ProtonVPN and pmp for QBittorrent:
 - You can enable DHT if you want more peers<br>
 
