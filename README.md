@@ -1,9 +1,10 @@
 # qBittorrentProtonVPN
 
-### NOTE: Make sure you have the ProtonVPN Paid tier, Free tier won't work.
-### NOTE 2: The guide was updated and the env variables fixed, make sure you do `docker compose up -d --force-recreate`
+### NOTES: 
+- Make sure you have the ProtonVPN Paid tier, Free tier won't work. 
+- **The guide was updated** and the env variables fixed, **make sure you do** `docker compose up -d --force-recreate`
 
-Guide for setting up qBittorrent to use ProtonVPN using Docker:
+### Guide for setting up qBittorrent to use ProtonVPN using Docker:
 
 In this guide we'll create two containers in one file, one for qBittorrent from the linuxserver.io<br>
 The other one is for gluetun (vpn client) which is what we'll use for the ProtonVPN connection.<br>
