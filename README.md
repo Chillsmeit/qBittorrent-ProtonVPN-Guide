@@ -143,18 +143,53 @@ wget -qO- https://ipinfo.io/json
 
 ![image](https://github.com/user-attachments/assets/54b89528-b0a3-45e7-9082-36199d2ef3bf)
 
-### If you want to send magnet links directly to your container through terminal:
+## If you want to send magnet links directly to your container:
 
-Download the magnet-qbit.sh script:
+You can either send links from the terminal, or set the script as your system's
+magnet handler so clicking a magnet link in your browser sends it straight to qBittorrent.
+
+### Download the script
+
 ```
-wget https://raw.githubusercontent.com/Chillsmeit/qBittorrent-ProtonVPN-Guide/refs/heads/main/magnet-qbit.sh
+mkdir -p ~/.local/bin
+wget -O ~/.local/bin/magnet-qbit.sh https://raw.githubusercontent.com/Chillsmeit/qBittorrent-ProtonVPN-Guide/refs/heads/main/Magnet/magnet-qbit.sh
+chmod +x ~/.local/bin/magnet-qbit.sh
 ```
+
+Open the script and set `qbit_url` to your Web UI address if you changed the default port.
+If you don't have `Bypass authentication for clients on localhost` enabled, also fill in
+`user` and `password`.
+
+### Terminal usage
+
+Create an alias, for example:
+
 ```
-chmod +x magnet-qbit.sh
+alias qbit="~/.local/bin/magnet-qbit.sh"
 ```
-You can then create an alias for the script for example:
+
+NOTE: The magnet link needs to be passed in quotes!
+
+### Browser usage (magnet link handler)
+
+Download the desktop file:
+
 ```
-alias qbit="/path/to/script.sh"
+mkdir -p ~/.local/share/applications
+wget -O ~/.local/share/applications/qbit-magnet.desktop https://raw.githubusercontent.com/Chillsmeit/qBittorrent-ProtonVPN-Guide/refs/heads/main/Magnet/qbit-magnet.desktop
 ```
-NOTE: The magnet link needs to be passed in quotes!<br>
-This pairs well with something like [torge](https://github.com/TUVIMEN/torge)
+
+Register it as the default handler for magnet links:
+
+```
+update-desktop-database ~/.local/share/applications
+xdg-mime default qbit-magnet.desktop x-scheme-handler/magnet
+```
+
+You should get a desktop notification and see the torrent appear in the Web UI when you click a magnet link now:
+
+- **Firefox** shows an "open with" dialog the first time.
+  Pick the handler and tick *Remember my choice*.
+  To change it later, go to `about:preferences`, search for `magnet` under Applications, and set the action there or delete the `handlers.json` in your profile folder
+- **Chromium-based browsers** usually just works after the commands above.
+- If it doesn't work, try with a non flatpak browser.
